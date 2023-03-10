@@ -1,1 +1,1 @@
-git jest git
+git jest teraz na drugim branchu
