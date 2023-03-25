@@ -14,7 +14,7 @@ class Player:
 
 class Board:
 
-    board = ['-' for _ in range(10)]
+    board = [x for x in range(10)]
     win_set = [{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, {1, 5, 9}, {3, 5, 7}]
     used_position_set = set()
 
@@ -28,9 +28,7 @@ class Board:
         )
 
     def add_to_board(self, place: int, marker: str, player_set: set):
-        if place in player_set:
-            print('This place has been used before. Choose other number: 1-9')
-        else:
+        if place not in player_set:
             self.board.pop(place)
             self.board.insert(place, marker)
 
