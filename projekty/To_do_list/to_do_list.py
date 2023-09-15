@@ -1,7 +1,8 @@
-from main import main
+""" THIS MODULE IS AN APP EXECUTOR. Run this via commandline """
 from sys import argv
-from application import App
 from sqlite3 import OperationalError
+from main import main
+from application import App
 
 
 if __name__ == '__main__':

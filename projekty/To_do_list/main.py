@@ -1,7 +1,13 @@
+""" This module is an APP interface for user via commandline """
+import sys
 from application import App
 
 
 def main():
+    """
+    This function is app algorithm
+    :return:
+    """
     app = App()
     app.print_tasks()
     app.print_menu_guide()
@@ -22,7 +28,10 @@ def main():
 
                 if todo_id_task != 0:
                     app.update_status_of_finished_task(todo_id_task)
-                print(f"{str(app.fetch_time_until_finished_task(todo_id_task) / 60).split('.')[0]} minut minęło")
+                print(
+                    str(app.fetch_time_until_finished_task(todo_id_task) / 60).split('.', maxsplit=1)[0],
+                    "minut minęło"
+                )
 
                 main()
 
@@ -30,10 +39,9 @@ def main():
                 main()
 
             case '4':
-                exit()
+                sys.exit()
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
-    except ValueError as e:
-        print(("Podano niepoprawną wartość", e))
+    except ValueError as error:
+        print(("Podano niepoprawną wartość", error))
         main()
-

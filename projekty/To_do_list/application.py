@@ -1,7 +1,8 @@
+"""This module is responsible for all tasks with database"""
 import sqlite3
 
 
-class App:
+class AppDB:
 
     def __init__(self):
         with sqlite3.connect('To_do_list.db') as db_connection:
@@ -38,23 +39,11 @@ class App:
         self.cursor.execute('ALTER TABLE todos ADD COLUMN elapsed_time TIMESTAMP')
         self.connection.commit()
 
-    def print_menu_guide(self):
-        instructions = [
-            "Dodaj zadanie",
-            "Zakończ zadanie",
-            "Wyświetl zadania",
-            "Zamknij",
-        ]
-        print('---------\n')
-        for number, instruction in enumerate(instructions, 1):
-            print(f'{number}. {instruction}')
-        print('\n---------')
-
     def print_tasks(self):
         records = self.cursor.execute('SELECT todo_id, title, is_done FROM todos WHERE is_done=0')  #  pomiędzy SELECT a FROM można dać * co oznacza wszystko
         print('Zawartość listy:')
 
-        for todo_id, title, is_done in records:
+        for todo_id, title, _ in records:
             print(f'{todo_id}- {title}')
 
     def add_task(self, title: str):
@@ -74,6 +63,21 @@ class App:
             (todo_id,))
 
         return self.cursor.fetchone()[0]
+
+
+class App(AppDB):
+    @staticmethod
+    def print_menu_guide():
+        instructions = [
+            "Dodaj zadanie",
+            "Zakończ zadanie",
+            "Wyświetl zadania",
+            "Zamknij",
+        ]
+        print('---------\n')
+        for number, instruction in enumerate(instructions, 1):
+            print(f'{number}. {instruction}')
+        print('\n---------')
 
 
 # 7. wyświetlać na przeglądarce
